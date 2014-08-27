@@ -1,3 +1,8 @@
+# Changes
+
+* Add Support for SSL.
+* Add Support for Sensu 0.13.0.
+
 # Requirements
 `influxdb` ruby gem
 
