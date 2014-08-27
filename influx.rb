@@ -15,13 +15,18 @@ module Sensu::Extension
     end
 
     def post_init
-      @influxdb = InfluxDB::Client.new settings['influx']['database'], :host => settings['influx']['host'], :port => settings['influx']['port'], :username => settings['influx']['user'], :password => settings['influx']['password']
+      @influxdb = InfluxDB::Client.new settings['influx']['database'],
+                  :host => settings['influx']['host'],
+                  :port => settings['influx']['port'],
+                  :username => settings['influx']['user'],
+                  :password => settings['influx']['password'],
+                  :use_ssl => settings['influx']['usessl'] || true
       @timeout = @settings['influx']['timeout'] || 15
     end
 
     def run(event)
       begin
-        event = Oj.load(event)
+        event = MultiJson.load(event)
         host = event[:client][:name]
         series = event[:check][:name]
         timestamp = event[:check][:issued]

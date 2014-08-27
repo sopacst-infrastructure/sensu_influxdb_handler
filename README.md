@@ -43,6 +43,7 @@ Just drop the file in `/etc/sensu/extensions` and add it to your `metrics` confi
     "password": "stats",
     "database": "stats",
     "strip_metric": "somevalue"
+    "ssl": true
   }
 }
 ```
