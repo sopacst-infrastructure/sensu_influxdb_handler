@@ -20,8 +20,9 @@ module Sensu::Extension
                   :port => settings['influx']['port'],
                   :username => settings['influx']['user'],
                   :password => settings['influx']['password'],
-                  :use_ssl => settings['influx']['usessl'] || true
+                  :use_ssl => settings['influx']['ssl'] || true
       @timeout = @settings['influx']['timeout'] || 15
+      @series_per_metric = @settings['influx']['series_per_metric'] || true
     end
 
     def run(event)
@@ -51,7 +52,15 @@ module Sensu::Extension
       end
 
       begin
-        @influxdb.write_point(series, points, true)
+        if ! @series_per_metric
+          @influxdb.write_point(series, points, true)
+        else
+          points.each do |p|
+            series = p[:metric]
+            p.delete(:metric)
+            @influxdb.write_point(series, p, true)
+          end
+        end
       rescue => e
         @logger.error("InfluxDB: Error posting event - #{e.backtrace.to_s}")
       end
