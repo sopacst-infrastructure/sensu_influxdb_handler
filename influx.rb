@@ -64,7 +64,6 @@ module Sensu::Extension
       rescue => e
         @logger.error("InfluxDB: Error posting event - #{e.backtrace.to_s}")
       end
-      yield("InfluxDB: Handler finished", 0)
     end
 
   end
