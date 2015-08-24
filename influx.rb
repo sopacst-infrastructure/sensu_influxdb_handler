@@ -66,5 +66,7 @@ module Sensu::Extension
       end
     end
 
+    yield("updating influxdb", 0)
+
   end
 end
