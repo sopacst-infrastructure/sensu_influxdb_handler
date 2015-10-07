@@ -1,0 +1,10 @@
+{
+  "influxdb": {
+      "host": "hostname"
+      "port": "8086", 
+      "database": "database", 
+      "username": "username", 
+      "password": "password", 
+      "use_ssl": "true"
+  }
+}
