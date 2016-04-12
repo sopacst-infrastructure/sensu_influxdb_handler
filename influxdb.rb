@@ -40,7 +40,7 @@ module Sensu::Extension
       end
 
       # turn the event data into a json blob.
-      event = MultiJson.load(event)
+      event = Sensu::Json.load(event)
 
       # connect to the database
       database = opts[:database]
